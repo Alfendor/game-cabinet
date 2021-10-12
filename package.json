@@ -4,10 +4,13 @@
   "description": "Organize your tabletop games and get recommendations for your game night!",
   "main": "index.js",
   "dependencies": {
+    "axios": "^0.23.0",
     "babel-loader": "^8.2.2",
     "expres": "^0.0.5",
     "express": "^4.17.1",
+    "jquery": "^3.6.0",
     "nodemon": "^2.0.13",
+    "path": "^0.12.7",
     "react": "^17.0.2",
     "react-dev": "0.0.1",
     "webpack": "^5.58.1"
@@ -21,7 +24,7 @@
     "url": "git+https://github.com/Alfendor/game-cabinet.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Derek Samms",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Alfendor/game-cabinet/issues"
