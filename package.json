@@ -1,0 +1,29 @@
+{
+  "name": "game-cabinet",
+  "version": "1.0.0",
+  "description": "Organize your tabletop games and get recommendations for your game night!",
+  "main": "index.js",
+  "dependencies": {
+    "babel-loader": "^8.2.2",
+    "expres": "^0.0.5",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.13",
+    "react": "^17.0.2",
+    "webpack": "^5.58.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alfendor/game-cabinet.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alfendor/game-cabinet/issues"
+  },
+  "homepage": "https://github.com/Alfendor/game-cabinet#readme"
+}
