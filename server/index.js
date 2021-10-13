@@ -7,6 +7,8 @@ const app = express();
 const axios = require('axios');
 // const config = require('../config.js');
 
+const db = require('../database/index.js');
+
 // app.use(cors());
 app.use(express.static(path.join(__dirname, '..', 'client/dist')));
 app.use(express.json());
@@ -17,15 +19,37 @@ app.get('/test', (req, res) => {
   res.sendStatus(200);
 })
 
+// //GET games from BGG based on search criteria // NOT NECESSARY: DO IT IN THE APP
+// app.get('/bgg', (req, res) =>)
+
 //add game to cabinet
+app.post('/cabinet', (req, res) => {
+  db.addGame(req.params, (err, data) => {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.status(201).send(data);
+    }
+  })
+})
 
-//search games in cabinet
+//search games in cabinet for suggestions
+app.get('/cabinet', (req, res) => {
+  db.findGame(req.params, (err, data) => {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
 
+
+/** IMPLEMENT LATER */
 //add game to wishlist
 
 //search games in wishlist
 
-//GET games based on search criteria
 
 app.listen(PORT, () => {
   console.log(`Game Cabinet listening at localhost:${PORT}`);
