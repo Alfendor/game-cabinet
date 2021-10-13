@@ -2,7 +2,7 @@ var path = require('path');
 var SRC_DIR = path.join(__dirname, '/client/src');
 var DIST_DIR = path.join(__dirname, '/client/dist');
 const webpack = require('webpack');
-var CompressionPlugin = require('compression-webpack-plugin');
+// var CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   entry: ['regenerator-runtime/runtime.js', `${SRC_DIR}/index.js`],
@@ -25,30 +25,30 @@ module.exports = {
           }
         }
       },
-      {
-        test: /\.s[ac]ss$/i,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader',
-        ]
-      },
-      {
-        test: /\.(png|jpe?g|gif)$/i,
-        loader: 'file-loader',
-        options: {
-          outputPath: 'images',
-        },
-      },
-    ],
-  },
-  resolve: {
-    extensions: ['', '.js', '.jsx'],
-  },
-  plugins: [
-    new webpack.ProvidePlugin({
-      process: 'process/browser',
-    }),
+  //     {
+  //       test: /\.s[ac]ss$/i,
+  //       use: [
+  //         'style-loader',
+  //         'css-loader',
+  //         'sass-loader',
+  //       ]
+  //     },
+  //     {
+  //       test: /\.(png|jpe?g|gif)$/i,
+  //       loader: 'file-loader',
+  //       options: {
+  //         outputPath: 'images',
+  //       },
+  //     },
+  //   ],
+  // },
+  // resolve: {
+  //   extensions: ['', '.js', '.jsx'],
+  // },
+  // plugins: [
+  //   new webpack.ProvidePlugin({
+  //     process: 'process/browser',
+  //   }),
     // new webpack.DefinePlugin({
     //   "process.env": {
     //     NODE_ENV: JSON.stringify("development"),
@@ -62,5 +62,6 @@ module.exports = {
     //   threshold: 10240,
     //   minRatio: 0.8
     // })
-  ]
+    ]
+  }
 };
