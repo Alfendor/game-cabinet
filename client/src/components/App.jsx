@@ -9,17 +9,18 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      players: undefined,
-      age: undefined,
-      time: undefined,
-      cooperative: undefined,
-      mechanics: undefined,
-      theme: undefined,
-      equipment: undefined,
-      recommendations: null,
+      players: 0,
+      age: 0,
+      time: 0,
+      cooperative: '',
+      mechanics: '',
+      theme: '',
+      equipment: '',
       mechanicsOptions: [],
       themeOptions: [],
       equipmentOptions: []
+      recommendations: [],
+      randomIndex: 0
     }
   }
 
@@ -46,16 +47,25 @@ class App extends React.Component {
       equipment: this.state.equipment
     }
 
-    axios.get('/cabinet', params)
+    axios.get('/cabinet', { params: params })
       .then((res) => {
         this.setState({
           recommendations: res.data
         });
+        generateRandomIndex(res.data.length)
       })
       .catch((err) => {
         console.error(err);
       })
   }
+
+  generateRandomIndex(arrayLength) {
+    var index = Math.floor(Math.random(arrayLength));
+    this.setState({
+      randomIndex: index
+    });
+  }
+
 
   render() {
     return(
@@ -87,7 +97,7 @@ class App extends React.Component {
           <label>
             We want to
             <select name="cooperative" value={this.state.cooperative} onChange={this.handleChange.bind(this)}>
-              <option value="undefined">(no preference)</option>
+              <option value="">(no preference)</option>
               <option value="true">work together!</option>
               <option value="false">compete!</option>
             </select>
@@ -104,6 +114,11 @@ class App extends React.Component {
           </label>
           <input type="submit" value="Find Me a Game!" />
         </form>
+        <div>
+          {this.state.recommendations.length
+            ? <RecommendedGame game={this.state.recommendations[randomIndex]} />
+            : <span><em>Search above for a recommendation!</em></span>}
+        </div>
       </div>
     )
   }

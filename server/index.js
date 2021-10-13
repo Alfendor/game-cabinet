@@ -35,10 +35,13 @@ app.post('/cabinet', (req, res) => {
 
 //search games in cabinet for suggestions
 app.get('/cabinet', (req, res) => {
-  db.findGame(req.params, (err, data) => {
+  console.log(req);
+  db.findGame(req.query, (err, data) => {
     if (err) {
+      console.error('error getting games from db:', err);
       res.status(400).send(err);
     } else {
+      console.log('got games from db!');
       res.status(200).send(data);
     }
   });
