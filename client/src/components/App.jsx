@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import RecommendForm from './RecommendForm.jsx';
+import RecommendedGame from './RecommendedGame.jsx';
 // import Cabinet from './Cabinet.jsx';
 // import SearchBgg from './SearchBgg.jsx';
 // import Wishlist from './SearchBgg.jsx';
@@ -18,10 +19,12 @@ class App extends React.Component {
       equipment: '',
       mechanicsOptions: [],
       themeOptions: [],
-      equipmentOptions: []
+      equipmentOptions: [],
       recommendations: [],
       randomIndex: 0
-    }
+    };
+
+    this.generateRandomIndex = this.generateRandomIndex.bind(this);
   }
 
   handleChange(event) {
@@ -52,7 +55,7 @@ class App extends React.Component {
         this.setState({
           recommendations: res.data
         });
-        generateRandomIndex(res.data.length)
+        this.generateRandomIndex(res.data.length)
       })
       .catch((err) => {
         console.error(err);
@@ -73,6 +76,7 @@ class App extends React.Component {
         <div>My Game Cabinet</div>
         {/* <SearchBgg />
         <Wishlist /> */}
+        <div><h4>Find a recommendation:</h4></div>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <label>
             We like
@@ -114,9 +118,9 @@ class App extends React.Component {
           </label>
           <input type="submit" value="Find Me a Game!" />
         </form>
-        <div>
+        <div className="recommendation-box">
           {this.state.recommendations.length
-            ? <RecommendedGame game={this.state.recommendations[randomIndex]} />
+            ? <RecommendedGame game={this.state.recommendations[this.state.randomIndex]} />
             : <span><em>Search above for a recommendation!</em></span>}
         </div>
       </div>
