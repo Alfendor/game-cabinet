@@ -1,13 +1,13 @@
 const express = require('express');
 const path = require('path');
 const PORT = 5000;
-const cors = require('cors');
+// const cors = require('cors');
 const app = express();
 
 const axios = require('axios');
 // const config = require('../config.js');
 
-app.use(cors());
+// app.use(cors());
 app.use(express.static(path.join(__dirname, '..', 'client/dist')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

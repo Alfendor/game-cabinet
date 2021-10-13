@@ -11,11 +11,14 @@ class App extends React.Component {
 
   render() {
     return(
-      <div>My Game Cabinet</div>
-      <SearchBgg />
-      <Wishlist />
+      <div>
+        <div>My Game Cabinet</div>
+        <SearchBgg />
+        <Wishlist />
+      </div>
     )
   }
-}
+};
 
+//hey there
 export default App;
