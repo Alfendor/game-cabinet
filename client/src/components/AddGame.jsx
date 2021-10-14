@@ -34,7 +34,7 @@ const AddGame = (props) => (
       </label>
       <label>
         It's themed after
-        <select name="newThemeEntry" multiple="true" value={props.newThemeEntry} onChange={props.handleChange}>
+        <select name="newThemeEntry" value={props.newThemeEntry} onChange={props.handleChange}>
           <option value="">Choose one or more.</option>
           {props.themeOptions.map((theme) => (
             <option key={theme.id} value={theme.name}>{theme.name}</option>
@@ -44,7 +44,7 @@ const AddGame = (props) => (
       </label>
       <label>
         It involves
-        <select name="newMechanicsEntry" multiple="true" value={props.newMechanicsEntry} onChange={props.handleChange}>
+        <select name="newMechanicsEntry" value={props.newMechanicsEntry} onChange={props.handleChange}>
           <option value="">Choose one or more.</option>
           {props.mechanicsOptions.map((mech) => (
             <option key={mech.id} value={mech.name}>{mech.name}</option>
@@ -54,7 +54,7 @@ const AddGame = (props) => (
       </label>
       <label>
         It uses
-        <select name="newEquipmentEntry" multiple="true" value={props.newEquipmentEntry} onChange={props.handleChange}>
+        <select name="newEquipmentEntry" value={props.newEquipmentEntry} onChange={props.handleChange}>
           <option value="">Choose one or more.</option>
           {props.equipmentOptions.map((equip) => (
             <option key={equip.id} value={equip.name}>{equip.name}</option>
