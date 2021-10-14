@@ -62,7 +62,11 @@ const findGame = (params, callback) => {
   });
 }
 /**figure out the query here
-SELECT * FROM games
+SELECT g.*, t.name, m.name, e.name
+FROM games g
+LEFT JOIN themes t ON t.id = (SELECT theme_id FROM game_themes WHERE game_id = g.id)
+LEFT JOIN mechanics m ON m.id = (SELECT mechanic_id FROM game_mechanics WHERE game_id = g.id)
+LEFT JOIN equipment e ON e.id = (SELECT equipment_id FROM game_equipment WHERE game_id = g.id)
   WHERE
     4 BETWEEN minplayers AND maxplayers
   AND
@@ -72,11 +76,11 @@ SELECT * FROM games
   AND
     cooperative = true
   AND
-    id IN (SELECT game_id FROM game_themes WHERE theme_id = (SELECT id FROM themes WHERE name LIKE '%Harry Potter%'))
+    g.id IN (SELECT game_id FROM game_themes WHERE theme_id = (SELECT id FROM themes WHERE name LIKE '%Harry Potter%'))
   AND
-    id IN (SELECT game_id FROM game_mechanics WHERE mechanic_id = (SELECT id FROM mechanics WHERE name LIKE '%Deck%Building%'))
+    g.id IN (SELECT game_id FROM game_mechanics WHERE mechanic_id = (SELECT id FROM mechanics WHERE name LIKE '%Deck%Building%'))
   AND
-    id IN (SELECT game_id FROM game_equipment WHERE equipment_id = (SELECT id FROM equipment WHERE name LIKE '%Cards%'));
+    g.id IN (SELECT game_id FROM game_equipment WHERE equipment_id = (SELECT id FROM equipment WHERE name LIKE '%Cards%'));
 */
 
 //GET LIST OF MECHANICS FOR DROP-DOWN MENU

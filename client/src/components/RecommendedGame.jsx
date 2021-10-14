@@ -5,7 +5,9 @@ const RecommendedGame = (props) => {
   return(
     <div>
       <span>You might like...</span>
-      <span><h4>{game.title}</h4></span>
+      <div className="game-title">
+        <span><h4>{game.title}</h4></span>
+      </div>
       <div className="stats">
         <div className="statbox players">
           <div className="statname">Players:</div>
@@ -42,7 +44,7 @@ const RecommendedGame = (props) => {
           </ul>
         </div>
       </div> */}
-      <button className="showDiff btn" onClick={props.handleShowDiffClick}>Show me a differnt game like this.</button>
+      <button className="showDiff btn" onClick={props.handleShowDiffClick}>Show me a different game like this.</button>
     </div>
   );
 }

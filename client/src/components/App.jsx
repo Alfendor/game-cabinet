@@ -120,7 +120,7 @@ class App extends React.Component {
   }
 
   handleAddGameSubmit(event) {
-    event.preventDefault();
+    // event.preventDefault();
     console.log('new game submitted!');
     var params = {
       title: this.state.newTitleEntry,
@@ -146,7 +146,7 @@ class App extends React.Component {
   }
 
   generateRandomIndex() {
-    var index = Math.floor(Math.random(this.state.recommendations.length));
+    var index = Math.floor(Math.random() * (this.state.recommendations.length));
     this.setState({
       randomIndex: index
     });
@@ -233,7 +233,10 @@ class App extends React.Component {
             ? <RecommendedGame game={this.state.recommendations[this.state.randomIndex]} handleShowDiffClick={this.handleShowDiffClick} />
             : <span><em>No recommendations to display. Try a new search!</em></span>}
         </div>
+        <div><h4>Add a New Game:</h4></div>
         <AddGame
+          handleChange={this.handleChange}
+          handleAddGameSubmit={this.handleAddGameSubmit}
           newTitleEntry={this.state.newTitleEntry}
           newMinPlayersEntry={this.state.newMinPlayersEntry}
           newMaxPlayersEntry={this.state.newMaxPlayersEntry}
