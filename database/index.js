@@ -34,6 +34,9 @@ const findGame = (params, callback) => {
   if (params.cooperative) {
     filters.push(`cooperative = ${params.cooperative}`);
   }
+  if (params.theme) {
+    filters.push(`()`)
+  }
   if (filters.length >= 1) {
     query += ' WHERE ';
     query += filters.join(' AND ');
@@ -59,8 +62,9 @@ SELECT * FROM games
   AND
     minage <= 12
   AND
-    cooperative = false;
-
+    cooperative = true
+  AND
+    id IN (SELECT game_id FROM game_themes WHERE theme_id = (SELECT id FROM themes WHERE name LIKE '%Harry Potter%'));
 */
 
 
@@ -77,6 +81,24 @@ const addGame = (params, callback) => {
     }
   });
 }
+
+/**
+INSERT INTO
+  game_themes (game_id, theme_id)
+VALUES
+  (
+    5,
+    (SELECT id FROM themes WHERE name LIKE 'Hist%')
+  ),
+  (
+    5,
+    (SELECT id FROM themes WHERE name = 'Trains')
+  ),
+  (
+    5,
+    (SELECT id FROM themes WHERE name LIKE 'United States%')
+  );
+ */
 
 pool.connect()
   .then(() => console.log('connected to database!'))

@@ -26,7 +26,12 @@ form {
   /* border: midnightblue; */
   /* background-color: rgb(8, 53, 30); */
   background-image: linear-gradient(rgb(2, 43, 2), rgb(4, 65, 17));
+  box-shadow: black;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-around;
+}
+
+.recommendation-box {
+  background-image: linear-gradient(rgb(2, 43, 2), rgb(4, 65, 17));
 }

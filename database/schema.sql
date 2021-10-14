@@ -150,6 +150,43 @@ CREATE TABLE IF NOT EXISTS game_equipment (
 --   ('Income'),
 --   ('Player Elimination');
 
+INSERT INTO
+  themes (name)
+VALUES
+  ('Fantasy'),
+  ('Sci-Fi Science Fiction'),
+  ('TV'),
+  ('Books'),
+  ('Movies'),
+  ('The Lord of the Rings'),
+  ('Harry Potter'),
+  ('Star Trek'),
+  ('Firefly'),
+  ('Monsters'),
+  ('Horror'),
+  ('History'),
+  ('Renaissance'),
+  ('United States of America'),
+  ('Comedy'),
+  ('Absurd Humor'),
+  ('Mystery'),
+  ('Murder'),
+  ('Spies and Espionage'),
+  ('Politics'),
+  ('Escape Room'),
+  ('Food'),
+  ('Animals');
+
+-- INSERT INTO
+--   equipment (name)
+-- VALUES
+--   ('Dice'),
+--   ('Cards'),
+--   ('Board or Boards'),
+--   ('Tokens'),
+--   ('Meeples'),
+--   ('Figurines or Models');
+
 -- INSERT INTO
 --   games (title, minPlayers, maxPlayers, playingTime, cooperative, minage)
 -- VALUES
