@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RecommendForm = (props) => {
+const RecommendForm = (props) => (
   // <form onSubmit={this.handleSubmit.bind(this)}>
   //   <label>
   //     What are your interests?
@@ -32,6 +32,6 @@ const RecommendForm = (props) => {
   //   </label>
   //   <input type="submit" value="Find Me a Game!" />
   // </form>
-}
+)
 
 export default RecommendForm;

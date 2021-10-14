@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import RecommendForm from './RecommendForm.jsx';
+// import RecommendForm from './RecommendForm.jsx';
 import RecommendedGame from './RecommendedGame.jsx';
+// import bootstrap from 'bootstrap';
 // import Cabinet from './Cabinet.jsx';
 // import SearchBgg from './SearchBgg.jsx';
 // import Wishlist from './SearchBgg.jsx';
@@ -55,11 +56,13 @@ class App extends React.Component {
         this.setState({
           recommendations: res.data
         });
-        this.generateRandomIndex(res.data.length)
+        // this.generateRandomIndex(res.data.length)
       })
       .catch((err) => {
         console.error(err);
-      })
+      });
+
+    this.generateRandomIndex(this.state.recommendations.length);
   }
 
   generateRandomIndex(arrayLength) {
@@ -73,7 +76,7 @@ class App extends React.Component {
   render() {
     return(
       <div>
-        <div>My Game Cabinet</div>
+        <div className="title"><h1>My Game Cabinet</h1></div>
         {/* <SearchBgg />
         <Wishlist /> */}
         <div><h4>Find a recommendation:</h4></div>
