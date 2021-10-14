@@ -5,7 +5,7 @@ import RecommendedGame from './RecommendedGame.jsx';
 import AddGame from './AddGame.jsx';
 // import bootstrap from 'bootstrap';
 // import Cabinet from './Cabinet.jsx';
-// import SearchBgg from './SearchBgg.jsx';
+import SearchBgg from './SearchBgg.jsx';
 // import Wishlist from './SearchBgg.jsx';
 
 class App extends React.Component {
@@ -169,8 +169,7 @@ class App extends React.Component {
     return(
       <div>
         <div className="title"><h1>My Game Cabinet</h1></div>
-        {/* <SearchBgg />
-        <Wishlist /> */}
+        {/* <Wishlist /> */}
         <div><h4>Find a recommendation:</h4></div>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <label>
@@ -202,7 +201,7 @@ class App extends React.Component {
               <option value="">any theme</option>
               {this.state.themeOptions.map((theme) => (
                 <option key={theme.id} value={theme.name}>{theme.name}</option>
-              ))}
+                ))}
             </select>
             .
           </label>
@@ -212,7 +211,7 @@ class App extends React.Component {
               <option value="">any mechanic</option>
               {this.state.mechanicsOptions.map((mech) => (
                 <option key={mech.id} value={mech.name}>{mech.name}</option>
-              ))}
+                ))}
             </select>
             .
           </label>
@@ -222,7 +221,7 @@ class App extends React.Component {
               <option value="">any device</option>
               {this.state.equipmentOptions.map((equip) => (
                 <option key={equip.id} value={equip.name}>{equip.name}</option>
-              ))}
+                ))}
             </select>
             .
           </label>
@@ -233,6 +232,7 @@ class App extends React.Component {
             ? <RecommendedGame game={this.state.recommendations[this.state.randomIndex]} handleShowDiffClick={this.handleShowDiffClick} />
             : <span><em>No recommendations to display. Try a new search!</em></span>}
         </div>
+        <SearchBgg />
         <div><h4>Add a New Game:</h4></div>
         <AddGame
           handleChange={this.handleChange}

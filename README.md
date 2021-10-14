@@ -1,15 +1,25 @@
-# 🚀 Welcome to your new awesome project!
+# Welcome to My Game Cabinet!
 
-This project has been created using **webpack-cli**, you can now run
-
-```
-npm run build
-```
-
-or
+Run the following command in the terminal to start the server:
 
 ```
-yarn build
+npm run start-dev
 ```
 
-to bundle your application
+Then open your browser and navigate to
+
+```
+localhost:5000
+```
+
+# Features
+
+* Search the database for a game recommendation!
+  - Not all fields are required. Just fill in what matters to you.
+  - Our database currently only contains test data. More games will be added over time.
+
+* Features in progress:
+  - Search Board Game Geek for more game info.
+  - Create an account.
+  - Add a game to your personal cabinet.
+  - Add a game to your wishlist.
