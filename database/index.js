@@ -180,5 +180,8 @@ pool.connect()
 module.exports = {
   pool,
   findGame,
-  addGame
+  addGame,
+  getMechanics,
+  getThemes,
+  getEquipment
 }

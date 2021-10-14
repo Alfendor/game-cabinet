@@ -35,7 +35,7 @@ app.post('/cabinet', (req, res) => {
 
 //search games in cabinet for suggestions
 app.get('/cabinet', (req, res) => {
-  console.log(req);
+  console.log(req.query);
   db.findGame(req.query, (err, data) => {
     if (err) {
       console.error('error getting games from db:', err);
@@ -47,6 +47,47 @@ app.get('/cabinet', (req, res) => {
   });
 });
 
+//retrieve list of mechanics
+app.get('/cabinet/mechanics', (req, res) => {
+  console.log('mechanics request recd!');
+  db.getMechanics((err, data) => {
+    if (err) {
+      console.error('error getting mechanics:', err);
+      res.status(400).send(err);
+    } else {
+      console.log('got mechanics list!');
+      res.status(200).send(data);
+    }
+  })
+});
+
+//retrieve list of themes
+app.get('/cabinet/themes', (req, res) => {
+  console.log('themes request recd!');
+  db.getThemes((err, data) => {
+    if (err) {
+      console.error('error getting themes:', err);
+      res.status(400).send(err);
+    } else {
+      console.log('got themes list!');
+      res.status(200).send(data);
+    }
+  })
+});
+
+//retrieve list of equipment
+app.get('/cabinet/equipment', (req, res) => {
+  console.log('equipment request recd!');
+  db.getEquipment((err, data) => {
+    if (err) {
+      console.error('error getting equipment:', err);
+      res.status(400).send(err);
+    } else {
+      console.log('got equipment list!');
+      res.status(200).send(data);
+    }
+  })
+});
 
 /** IMPLEMENT LATER */
 //add game to wishlist

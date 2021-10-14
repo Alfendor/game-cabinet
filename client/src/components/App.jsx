@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 // import RecommendForm from './RecommendForm.jsx';
 import RecommendedGame from './RecommendedGame.jsx';
+import AddGame from './AddGame.jsx';
 // import bootstrap from 'bootstrap';
 // import Cabinet from './Cabinet.jsx';
 // import SearchBgg from './SearchBgg.jsx';
@@ -22,10 +23,63 @@ class App extends React.Component {
       themeOptions: [],
       equipmentOptions: [],
       recommendations: [],
-      randomIndex: 0
+      randomIndex: 0,
+      newTitleEntry: '',
+      newMinPlayersEntry: 0,
+      newMaxPlayersEntry: 100,
+      newMinAgeEntry: 0,
+      newTimeEntry: 60,
+      newCooperativeEntry: '',
+      newThemeEntry: [],
+      newMechanicsEntry: [],
+      newEquipmentEntry: []
     };
 
     this.generateRandomIndex = this.generateRandomIndex.bind(this);
+    this.getMechanicsOptions = this.getMechanicsOptions.bind(this);
+    this.getThemeOptions = this.getThemeOptions.bind(this);
+    this.getEquipmentOptions = this.getEquipmentOptions.bind(this);
+    this.generateRandomIndex = this.generateRandomIndex.bind(this);
+    this.handleShowDiffClick = this.handleShowDiffClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleAddGameSubmit = this.handleAddGameSubmit(this);
+  }
+
+  getMechanicsOptions() {
+    axios.get('/cabinet/mechanics')
+      .then((res) => {
+        this.setState({
+          mechanicsOptions: res.data
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  getThemeOptions() {
+    axios.get('/cabinet/themes')
+      .then((res) => {
+        this.setState({
+          themeOptions: res.data
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  getEquipmentOptions() {
+    axios.get('/cabinet/equipment')
+      .then((res) => {
+        this.setState({
+          equipmentOptions: res.data
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   handleChange(event) {
@@ -62,14 +116,52 @@ class App extends React.Component {
         console.error(err);
       });
 
-    this.generateRandomIndex(this.state.recommendations.length);
+    this.generateRandomIndex();
   }
 
-  generateRandomIndex(arrayLength) {
-    var index = Math.floor(Math.random(arrayLength));
+  handleAddGameSubmit(event) {
+    event.preventDefault();
+    console.log('new game submitted!');
+    var params = {
+      title: this.state.newTitleEntry,
+      minplayers: this.state.newMinPlayersEntry,
+      maxplayers: this.state.newMaxPlayersEntry,
+      minage: this.state.newMinAgeEntry,
+      time: this.state.newTimeEntry,
+      cooperative: this.state.newCooperativeEntry,
+      themes: this.state.newThemeEntry,
+      equipment: this.state.newEquipmentEntry,
+      mechanics: this.state.newMechanicsEntry
+    }
+
+    axios.post('/cabinet', { params: params })
+      .then((res) => {
+        console.log('Game added to cabinet!', res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
+    this.generateRandomIndex();
+  }
+
+  generateRandomIndex() {
+    var index = Math.floor(Math.random(this.state.recommendations.length));
     this.setState({
       randomIndex: index
     });
+  }
+
+  handleShowDiffClick(event) {
+    event.preventDefault();
+
+    this.generateRandomIndex();
+  }
+
+  componentDidMount() {
+    this.getEquipmentOptions();
+    this.getMechanicsOptions();
+    this.getThemeOptions();
   }
 
 
@@ -82,13 +174,8 @@ class App extends React.Component {
         <div><h4>Find a recommendation:</h4></div>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <label>
-            We like
-            <input type="text" name="theme" value={this.state.theme} onChange={this.handleChange.bind(this)} />
-            .
-          </label>
-          <label>
             There are
-            <input type="number" name="players" value={this.state.players} min="1" onChange={this.handleChange.bind(this)} />
+            <input type="number" name="players" value={this.state.players} onChange={this.handleChange} />
             of us.
           </label>
           <label>
@@ -110,22 +197,56 @@ class App extends React.Component {
             </select>
           </label>
           <label>
-            We like games based around
-            <input type="text" name="mechanics" value={this.state.mechanics} onChange={this.handleChange.bind(this)} />
+            We are into
+            <select name="theme" value={this.state.theme} onChange={this.handleChange.bind(this)}>
+              <option value="">any theme</option>
+              {this.state.themeOptions.map((theme) => (
+                <option key={theme.id} value={theme.name}>{theme.name}</option>
+              ))}
+            </select>
+            .
+          </label>
+          <label>
+            We enjoy games based around
+            <select name="mechanics" value={this.state.mechanics} onChange={this.handleChange.bind(this)}>
+              <option value="">any mechanic</option>
+              {this.state.mechanicsOptions.map((mech) => (
+                <option key={mech.id} value={mech.name}>{mech.name}</option>
+              ))}
+            </select>
             .
           </label>
           <label>
             We like to use
-            <input type="text" name="equipment" value={this.state.equipment} onChange={this.handleChange.bind(this)} />
+            <select name="equipment" value={this.state.equipment} onChange={this.handleChange.bind(this)}>
+              <option value="">any device</option>
+              {this.state.equipmentOptions.map((equip) => (
+                <option key={equip.id} value={equip.name}>{equip.name}</option>
+              ))}
+            </select>
             .
           </label>
           <input type="submit" value="Find Me a Game!" />
         </form>
         <div className="recommendation-box">
           {this.state.recommendations.length
-            ? <RecommendedGame game={this.state.recommendations[this.state.randomIndex]} />
-            : <span><em>Search above for a recommendation!</em></span>}
+            ? <RecommendedGame game={this.state.recommendations[this.state.randomIndex]} handleShowDiffClick={this.handleShowDiffClick} />
+            : <span><em>No recommendations to display. Try a new search!</em></span>}
         </div>
+        <AddGame
+          newTitleEntry={this.state.newTitleEntry}
+          newMinPlayersEntry={this.state.newMinPlayersEntry}
+          newMaxPlayersEntry={this.state.newMaxPlayersEntry}
+          newMinAgeEntry={this.state.newMinAgeEntry}
+          newTimeEntry={this.state.newTimeEntry}
+          newCooperativeEntry={this.state.newCooperativeEntry}
+          newThemeEntry={this.state.newThemeEntry}
+          newMechanicsEntry={this.state.newMechanicsEntry}
+          newEquipmentEntry={this.state.newEquipmentEntry}
+          themeOptions={this.state.themeOptions}
+          mechanicsOptions={this.state.mechanicsOptions}
+          equipmentOptions={this.state.equipmentOptions}
+        />
       </div>
     )
   }

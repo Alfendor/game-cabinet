@@ -25,8 +25,8 @@ const RecommendedGame = (props) => {
           <div className="listname">Involves:</div>
           <ul>
             {
-              game.mechanics.map((mechanic, index) => (
-                <li key={index}>{mechanic}</li>
+              game.mechanics.map((mechanic) => (
+                <li key={mechanic.id}>{mechanic.name}</li>
               ))
             }
           </ul>
@@ -35,13 +35,14 @@ const RecommendedGame = (props) => {
         <div className="listname">Uses:</div>
           <ul>
             {
-              game.equipment.map((equipment, index) => (
-                <li key={index}>{equipment}</li>
+              game.equipment.map((equipment) => (
+                <li key={equipment.id}>{equipment.name}</li>
               ))
             }
           </ul>
         </div>
       </div> */}
+      <button className="showDiff btn" onClick={props.handleShowDiffClick}>Show me a differnt game like this.</button>
     </div>
   );
 }
