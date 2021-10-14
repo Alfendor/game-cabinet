@@ -87,16 +87,36 @@ INSERT INTO
   game_themes (game_id, theme_id)
 VALUES
   (
-    5,
-    (SELECT id FROM themes WHERE name LIKE 'Hist%')
+    12,
+    (SELECT id FROM themes WHERE name LIKE '%TV%')
   ),
   (
-    5,
-    (SELECT id FROM themes WHERE name = 'Trains')
+    12,
+    (SELECT id FROM themes WHERE name LIKE '%Friends%')
+  );
+
+INSERT INTO
+  game_mechanics (game_id, mechanic_id)
+VALUES
+  (
+    12,
+    (SELECT id FROM mechanics WHERE name LIKE '%Trivia%')
+  );
+
+INSERT INTO
+  game_equipment (game_id, equipment_id)
+VALUES
+  (
+    7,
+    (SELECT id FROM mechanics WHERE name LIKE '%Dice%')
   ),
   (
-    5,
-    (SELECT id FROM themes WHERE name LIKE 'United States%')
+    7,
+    (SELECT id FROM mechanics WHERE name LIKE '%Board%')
+  ),
+  (
+    7,
+    (SELECT id FROM mechanics WHERE name LIKE '%Card%')
   );
  */
 

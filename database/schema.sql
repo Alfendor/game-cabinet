@@ -123,13 +123,27 @@ CREATE TABLE IF NOT EXISTS game_equipment (
 -- Table Properties
 -- ---
 
--- ALTER TABLE `games` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `themes` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `mechanics` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `equipment` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `game-themes` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `game-mechanics` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `game-equipment` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE game_themes
+-- ADD CONSTRAINT fk_theme
+-- FOREIGN KEY (theme_id)
+-- REFERENCES themes (id);
+
+-- ALTER TABLE game_themes
+-- ADD CONSTRAINT fk_game
+-- FOREIGN KEY (game_id)
+-- REFERENCES games (id);
+
+ALTER TABLE games
+ADD CONSTRAINT unique_title UNIQUE (title);
+
+ALTER TABLE themes
+ADD CONSTRAINT unique_theme UNIQUE (name);
+
+ALTER TABLE mechanics
+ADD CONSTRAINT unique_mechanic UNIQUE (name);
+
+ALTER TABLE equipment
+ADD CONSTRAINT unique_equipment UNIQUE (name);
 
 -- ---
 -- Test Data
@@ -150,32 +164,32 @@ CREATE TABLE IF NOT EXISTS game_equipment (
 --   ('Income'),
 --   ('Player Elimination');
 
-INSERT INTO
-  themes (name)
-VALUES
-  ('Fantasy'),
-  ('Sci-Fi Science Fiction'),
-  ('TV'),
-  ('Books'),
-  ('Movies'),
-  ('The Lord of the Rings'),
-  ('Harry Potter'),
-  ('Star Trek'),
-  ('Firefly'),
-  ('Monsters'),
-  ('Horror'),
-  ('History'),
-  ('Renaissance'),
-  ('United States of America'),
-  ('Comedy'),
-  ('Absurd Humor'),
-  ('Mystery'),
-  ('Murder'),
-  ('Spies and Espionage'),
-  ('Politics'),
-  ('Escape Room'),
-  ('Food'),
-  ('Animals');
+-- INSERT INTO
+--   themes (name)
+-- VALUES
+--   ('Fantasy'),
+--   ('Sci-Fi Science Fiction'),
+--   ('TV'),
+--   ('Books'),
+--   ('Movies'),
+--   ('The Lord of the Rings'),
+--   ('Harry Potter'),
+--   ('Star Trek'),
+--   ('Firefly'),
+--   ('Monsters'),
+--   ('Horror'),
+--   ('History'),
+--   ('Renaissance'),
+--   ('United States of America'),
+--   ('Comedy'),
+--   ('Absurd Humor'),
+--   ('Mystery'),
+--   ('Murder'),
+--   ('Spies and Espionage'),
+--   ('Politics'),
+--   ('Escape Room'),
+--   ('Food'),
+--   ('Animals');
 
 -- INSERT INTO
 --   equipment (name)
@@ -183,6 +197,7 @@ VALUES
 --   ('Dice'),
 --   ('Cards'),
 --   ('Board or Boards'),
+--   ('Paper and Pencil'),
 --   ('Tokens'),
 --   ('Meeples'),
 --   ('Figurines or Models');
