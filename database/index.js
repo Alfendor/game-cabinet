@@ -35,14 +35,22 @@ const findGame = (params, callback) => {
     filters.push(`cooperative = ${params.cooperative}`);
   }
   if (params.theme) {
-    filters.push(`()`)
+    filters.push(`id IN (SELECT game_id FROM game_themes WHERE theme_id = (SELECT id FROM themes WHERE name LIKE '%${params.theme}%'))`)
   }
+  if (params.mechanics) {
+    filters.push(`id IN (SELECT game_id FROM game_mechanics WHERE mechanic_id = (SELECT id FROM mechanics WHERE name LIKE '%${params.mechanics}%'))`)
+  }
+  if (params.equipment) {
+    filters.push(`id IN (SELECT game_id FROM game_equipment WHERE equipment_id = (SELECT id FROM equipment WHERE name LIKE '%${params.equipment}%'))`)
+  }
+
   if (filters.length >= 1) {
     query += ' WHERE ';
     query += filters.join(' AND ');
   }
-  console.log(params);
-  console.log(query);
+
+  // console.log(params);
+  // console.log(query);
 
   pool.query(query, (err, res) => {
     if (err) {
@@ -64,9 +72,54 @@ SELECT * FROM games
   AND
     cooperative = true
   AND
-    id IN (SELECT game_id FROM game_themes WHERE theme_id = (SELECT id FROM themes WHERE name LIKE '%Harry Potter%'));
+    id IN (SELECT game_id FROM game_themes WHERE theme_id = (SELECT id FROM themes WHERE name LIKE '%Harry Potter%'))
+  AND
+    id IN (SELECT game_id FROM game_mechanics WHERE mechanic_id = (SELECT id FROM mechanics WHERE name LIKE '%Deck%Building%'))
+  AND
+    id IN (SELECT game_id FROM game_equipment WHERE equipment_id = (SELECT id FROM equipment WHERE name LIKE '%Cards%'));
 */
 
+//GET LIST OF MECHANICS FOR DROP-DOWN MENU
+const getMechanics = (callback) => {
+  var query = `SELECT * FROM mechanics`;
+
+  pool.query(query, (err, res) => {
+    if (err) {
+      console.error(err);
+      callback(err);
+    } else {
+      callback(null, res.rows);
+    }
+  });
+}
+
+//GET LIST OF THEMES FOR DROP-DOWN MENU
+const getThemes  = (callback) => {
+  var query = `SELECT * FROM themes`;
+
+  pool.query(query, (err, res) => {
+    if (err) {
+      console.error(err);
+      callback(err);
+    } else {
+      callback(null, res.rows);
+    }
+  });
+}
+
+//GET LIST OF EQUIPMENT FOR DROP-DOWN MENU
+const getEquipment  = (callback) => {
+  var query = `SELECT * FROM equipment`;
+
+  pool.query(query, (err, res) => {
+    if (err) {
+      console.error(err);
+      callback(err);
+    } else {
+      callback(null, res.rows);
+    }
+  });
+}
 
 
 const addGame = (params, callback) => {
@@ -107,16 +160,16 @@ INSERT INTO
   game_equipment (game_id, equipment_id)
 VALUES
   (
-    7,
-    (SELECT id FROM mechanics WHERE name LIKE '%Dice%')
+    12,
+    (SELECT id FROM equipment WHERE name LIKE '%Card%')
   ),
   (
-    7,
-    (SELECT id FROM mechanics WHERE name LIKE '%Board%')
+    12,
+    (SELECT id FROM equipment WHERE name LIKE '%Board%')
   ),
   (
-    7,
-    (SELECT id FROM mechanics WHERE name LIKE '%Card%')
+    12,
+    (SELECT id FROM equipment WHERE name LIKE '%Wheel%')
   );
  */
 
