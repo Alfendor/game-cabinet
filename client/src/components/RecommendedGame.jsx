@@ -13,7 +13,7 @@ const RecommendedGame = (props) => {
           <div className="statname">Players:</div>
           <div className="stat">{game.minplayers}-{game.maxplayers}</div>
         </div>
-        <div className="playingtime">
+        <div className="statbox playingtime">
           <div className="statname">Avg. Time:</div>
           <div className="stat">{game.playingtime}</div>
         </div>
