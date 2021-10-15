@@ -81,6 +81,9 @@ LEFT JOIN equipment e ON e.id = (SELECT equipment_id FROM game_equipment WHERE g
     g.id IN (SELECT game_id FROM game_mechanics WHERE mechanic_id = (SELECT id FROM mechanics WHERE name LIKE '%Deck%Building%'))
   AND
     g.id IN (SELECT game_id FROM game_equipment WHERE equipment_id = (SELECT id FROM equipment WHERE name LIKE '%Cards%'));
+
+
+
 */
 
 //GET LIST OF MECHANICS FOR DROP-DOWN MENU
