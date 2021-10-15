@@ -1,5 +1,5 @@
 body {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Londrina Solid', cursive;
   /* background-image: linear-gradient(rgb(29, 28, 28), rgb(50, 50, 50)); */
   background-image: url('./images/table-03.jpeg');
   background-size: cover;
@@ -13,6 +13,7 @@ body {
   /* overflow-x: hidden; */
   display: flex;
   color: blanchedalmond;
+  text-shadow: 8px 8px 13px rgba(20, 9, 5, 0.9);
   flex-direction: column;
   justify-content: center;
   align-items:flex-start;
@@ -20,13 +21,19 @@ body {
 
 .title {
   justify-self: center;
+  align-self: center;
 }
 
-form {
+.subhead {
+  margin: 10px;
+}
+
+.game-form {
   /* border: midnightblue; */
   /* background-color: rgb(8, 53, 30); */
-  background-image: linear-gradient(rgb(2, 43, 2), rgb(4, 65, 17));
+  background-image: linear-gradient(rgb(2, 43, 2, .7), rgb(4, 65, 17, .5));
   /* opacity: .45; */
+  /* border: 5px ridge #594422; */
   box-shadow: black;
   display: flex;
   flex-direction: column;
@@ -36,16 +43,42 @@ form {
   min-height: 200px;
 }
 
-button {
+/* button {
+  margin: 3px;
+} */
+
+input {
+  margin: 3px;
+  background-color: blanchedalmond;
+  color: darkslategray;
+}
+
+.number-input {
+  max-width: 40px;
+}
+
+.text-input {
+  width: 150px;
+}
+
+.btn {
+  background-image: url('./images/table-03.jpeg');
+  background-size: cover;
+  color: blanchedalmond;
+  font-family: 'Londrina Solid', cursive;
+  width:fit-content;
   margin: 3px;
 }
 
-input {
-  margin: 2px;
+select {
+  margin: 3px;
+  background-color: blanchedalmond;
+  color: darkslategray;
+  width: fit-content;
 }
 
 .recommendation-box {
-  background-image: linear-gradient(rgb(2, 43, 2), rgb(4, 65, 17));
+  background-image: linear-gradient(rgb(2, 43, 2, .7), rgb(4, 65, 17, .5));
   min-height: 200px;
   margin: 10px;
   display: flex;
@@ -54,13 +87,25 @@ input {
   justify-content: center;
 }
 
+.game-title {
+  display: flex;
+  align-content: center;
+  align-self: center;
+  font-weight: bolder;
+  font-style: italic;
+}
+
 .stats {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
 
-.game-title {
+.statbox {
+  display: flex;
   align-content: center;
-  align-self: center;
+}
+
+.search-bar {
+  margin: 10px;
 }

@@ -1,27 +1,27 @@
 import React from 'react';
 
 const AddGame = (props) => (
-    <form onSubmit={props.handleAddGameSubmit}>
+    <form className="game-form" onSubmit={props.handleAddGameSubmit}>
       <label>
         Title:
-        <input type="text" name="newTitleEntry" value={props.newTitleEntry} onChange={props.handleChange} />
+        <input className="text-input" type="text" name="newTitleEntry" value={props.newTitleEntry} onChange={props.handleChange} />
       </label>
       <label>
         Minimum Players:
-        <input type="number" name="newMinPlayersEntry" value={props.newMinPlayersEntry} onChange={props.handleChange} />
+        <input className="number-input" type="number" name="newMinPlayersEntry" value={props.newMinPlayersEntry} onChange={props.handleChange} />
       </label>
       <label>
         Maximum Players:
-        <input type="number" name="newMaxPlayersEntry" value={props.newMaxPlayersEntry} onChange={props.handleChange} />
+        <input className="number-input" type="number" name="newMaxPlayersEntry" value={props.newMaxPlayersEntry} onChange={props.handleChange} />
       </label>
       <label>
         Recommended Age:
-        <input type="number" name="newMinAgeEntry" value={props.minAgeEntry} onChange={props.handleChange} />
+        <input className="number-input" type="number" name="newMinAgeEntry" value={props.minAgeEntry} onChange={props.handleChange} />
          and up.
       </label>
       <label>
         It usually takes
-        <input type="number" name="newTimeEntry" step="5" value={props.newTimeEntry} onChange={props.handleChange} />
+        <input className="number-input" type="number" name="newTimeEntry" step="5" value={props.newTimeEntry} onChange={props.handleChange} />
          minutes to play.
       </label>
       <label>
@@ -34,7 +34,7 @@ const AddGame = (props) => (
       </label>
       <label>
         It's themed after
-        <select name="newThemeEntry" value={props.newThemeEntry} onChange={props.handleChange}>
+        <select name="newThemeEntry" multiple={true} value={props.newThemeEntry} onChange={props.handleChange}>
           <option value="">Choose one or more.</option>
           {props.themeOptions.map((theme) => (
             <option key={theme.id} value={theme.name}>{theme.name}</option>
@@ -44,7 +44,7 @@ const AddGame = (props) => (
       </label>
       <label>
         It involves
-        <select name="newMechanicsEntry" value={props.newMechanicsEntry} onChange={props.handleChange}>
+        <select name="newMechanicsEntry" multiple={true} value={props.newMechanicsEntry} onChange={props.handleChange}>
           <option value="">Choose one or more.</option>
           {props.mechanicsOptions.map((mech) => (
             <option key={mech.id} value={mech.name}>{mech.name}</option>
@@ -54,7 +54,7 @@ const AddGame = (props) => (
       </label>
       <label>
         It uses
-        <select name="newEquipmentEntry" value={props.newEquipmentEntry} onChange={props.handleChange}>
+        <select name="newEquipmentEntry" multiple={true} value={props.newEquipmentEntry} onChange={props.handleChange}>
           <option value="">Choose one or more.</option>
           {props.equipmentOptions.map((equip) => (
             <option key={equip.id} value={equip.name}>{equip.name}</option>
@@ -62,7 +62,7 @@ const AddGame = (props) => (
         </select>
         .
       </label>
-      <input type="submit" value="Add this to my cabinet!" />
+      <input className="submit btn" type="submit" value="Add this to my cabinet!" />
     </form>
 
 )

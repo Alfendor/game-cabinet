@@ -2,13 +2,13 @@
 import React from 'react';
 
 const SearchBgg = (props) => (
-  <div>
+  <form className="search-bar" onSubmit={props.handleSearchSubmit}>
     <label>
-      Search on Board Game Geek:
-      <input type="text"></input>
+      <h3>Search on Board Game Geek:</h3>
+      <input type="text" name="search" value={props.search} onChange={props.handleChange}></input>
     </label>
-    <button>Search!</button>
-  </div>
+    <input type="submit" className="search btn" value="Search!"></input>
+  </form>
 )
 
 

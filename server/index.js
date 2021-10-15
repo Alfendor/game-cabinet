@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const PORT = 5000;
 // const cors = require('cors');
+const xmlparser = require('express-xml-bodyparser');
 const app = express();
 
 const axios = require('axios');
@@ -13,14 +14,26 @@ const db = require('../database/index.js');
 app.use(express.static(path.join(__dirname, '..', 'client/dist')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(xmlparser());
+
 
 app.get('/test', (req, res) => {
   console.log('Endpoint Test Success!');
   res.sendStatus(200);
 })
 
-// //GET games from BGG based on search criteria // NOT NECESSARY: DO IT IN THE APP
-// app.get('/bgg', (req, res) =>)
+// //GET games from BGG based on search criteria //
+app.get('/bgg', (req, res) => {
+  var search = req.params.search;
+  axios.get(`http://boardgamegeek.com/xmlapi/search?search=${search}`)
+    .then((response) => {
+      console.log('response from BGG:', response.data);
+      res.status(200).send(response.data);
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    })
+})
 
 //add game to cabinet
 app.post('/cabinet', (req, res) => {

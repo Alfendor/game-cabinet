@@ -24,6 +24,8 @@ class App extends React.Component {
       equipmentOptions: [],
       recommendations: [],
       randomIndex: 0,
+      search: '',
+      searchResults: [],
       newTitleEntry: '',
       newMinPlayersEntry: 0,
       newMaxPlayersEntry: 100,
@@ -43,7 +45,8 @@ class App extends React.Component {
     this.handleShowDiffClick = this.handleShowDiffClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleAddGameSubmit = this.handleAddGameSubmit(this);
+    this.handleAddGameSubmit = this.handleAddGameSubmit.bind(this);
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
   }
 
   getMechanicsOptions() {
@@ -94,7 +97,7 @@ class App extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log('search submitted: ', this.state.theme, this.state.players, this.state.age, this.state.time);
+    console.log('db search submitted: ', this.state.theme, this.state.players, this.state.age, this.state.time);
     var params = {
       players: this.state.players,
       age: this.state.age,
@@ -120,7 +123,7 @@ class App extends React.Component {
   }
 
   handleAddGameSubmit(event) {
-    // event.preventDefault();
+    event.preventDefault();
     console.log('new game submitted!');
     var params = {
       title: this.state.newTitleEntry,
@@ -143,6 +146,23 @@ class App extends React.Component {
       });
 
     this.generateRandomIndex();
+  }
+
+  handleSearchSubmit(event) {
+    event.preventDefault();
+    var params = { search: this.state.search };
+    console.log('BGG search submitted:', this.state.search);
+
+    axios.get('/bgg', {params: params})
+      .then((res) => {
+        console.log('BGG search results:', res.data);
+        this.setState({
+          searchResults: res.data
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   generateRandomIndex() {
@@ -170,21 +190,21 @@ class App extends React.Component {
       <div>
         <div className="title"><h1>My Game Cabinet</h1></div>
         {/* <Wishlist /> */}
-        <div><h4>Find a recommendation:</h4></div>
-        <form onSubmit={this.handleSubmit.bind(this)}>
+        <div className="subhead"><h3>Find a recommendation:</h3></div>
+        <form className="game-form" onSubmit={this.handleSubmit.bind(this)}>
           <label>
             There are
-            <input type="number" name="players" value={this.state.players} onChange={this.handleChange} />
+            <input className="number-input" type="number" name="players" value={this.state.players} onChange={this.handleChange} />
             of us.
           </label>
           <label>
             Our youngest player is
-            <input type="number" name="age" max="100" value={this.state.age} onChange={this.handleChange.bind(this)} />
+            <input className="number-input" type="number" name="age" max="100" value={this.state.age} onChange={this.handleChange.bind(this)} />
             years old.
           </label>
           <label>
             We have
-            <input type="number" name="time" step="5" value={this.state.time} onChange={this.handleChange.bind(this)} />
+            <input className="number-input" type="number" name="time" step="5" value={this.state.time} onChange={this.handleChange.bind(this)} />
             minutes to play.
           </label>
           <label>
@@ -225,15 +245,15 @@ class App extends React.Component {
             </select>
             .
           </label>
-          <input type="submit" value="Find Me a Game!" />
+          <input className="submit btn" type="submit" value="Find Me a Game!" />
         </form>
         <div className="recommendation-box">
           {this.state.recommendations.length
             ? <RecommendedGame game={this.state.recommendations[this.state.randomIndex]} handleShowDiffClick={this.handleShowDiffClick} />
             : <span><em>No recommendations to display. Try a new search!</em></span>}
         </div>
-        <SearchBgg />
-        <div><h4>Add a New Game:</h4></div>
+        <SearchBgg search={this.state.search} handleChange={this.handleChange} handleSearchSubmit={this.handleSearchSubmit} />
+        <div className="subhead"><h3>Add a New Game:</h3></div>
         <AddGame
           handleChange={this.handleChange}
           handleAddGameSubmit={this.handleAddGameSubmit}
