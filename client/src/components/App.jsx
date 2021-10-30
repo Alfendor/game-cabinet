@@ -26,6 +26,8 @@ class App extends React.Component {
       randomIndex: 0,
       search: '',
       searchResults: [],
+      game: 0,
+      gameDetails: '',
       newTitleEntry: '',
       newMinPlayersEntry: 0,
       newMaxPlayersEntry: 100,
@@ -158,6 +160,23 @@ class App extends React.Component {
         console.log('BGG search results:', res.data);
         this.setState({
           searchResults: res.data
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  handleGetDetailsClick(event) {
+    event.preventDefault();
+    var params = { game: this.state.game };
+    console.log('Game ID submitted:', this.state.game);
+
+    axios.get('/bgg/game', {params: params})
+      .then((res) => {
+        console.log('BGG game details:', res.data);
+        this.setState({
+          gameDetails: res.data
         });
       })
       .catch((err) => {

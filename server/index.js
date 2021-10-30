@@ -35,6 +35,18 @@ app.get('/bgg', (req, res) => {
     })
 })
 
+app.get('/bgg/game', (req, res) => {
+  var game = req.params.game
+  axios.get(`http://boardgamegeek.com/xmlapi/game/${game}`)
+    .then((response) => {
+      console.log('response from BGG:', response.data);
+      res.status(200).send(response.data);
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    })
+})
+
 //add game to cabinet
 app.post('/cabinet', (req, res) => {
   db.addGame(req.params, (err, data) => {
