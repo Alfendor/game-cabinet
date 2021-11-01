@@ -1,7 +1,7 @@
 const axios = require('axios');
 const config = require('../config.js');
 
-let getGameIDs = (search) => {
+const getGameIDs = (search) => {
   // TODO - Use the axios module to request repos for a specific
   // user from the github API
   // The options object has been provided to help you out,
@@ -15,14 +15,19 @@ let getGameIDs = (search) => {
 
   axios.request(options)
     .then(function(response) {
-      console.log('response.data: ', response.data[0].name);
+      console.log('response.data: ', response.data);
       callback(null, response.data);
     })
     .catch(function(error) {
       throw error;
     })
 
-}
+};
+
+// const getGameDetails = (game) => {
+
+// }
+
 
 module.exports = {
   getGameIDs,
